@@ -16,6 +16,10 @@ class Armor:
     def block(self):
         return random.randint(0, self.max_block)
 
+class Weapon(Ability):
+    def attack(self):
+        return random.randint(self.attack_strength//2, self.attack_strength)
+
 class Hero:
     def __init__(self, name, current_health = 100):
         self.abilities = []
@@ -74,6 +78,24 @@ class Hero:
                 fighting = False
             else:
                 continue
+
+class Team:
+    def __init__(self, name):
+        self.name = name
+        self.heroes = []
+    
+    def remove_hero(self, name):
+        if name not in self.heroes:
+            return 0
+        else:
+            self.heroes.remove(name)
+
+    def view_all_heroes(self):
+        for hero in self.heroes:
+            print(hero)
+
+    def add_hero(self, hero):
+        self.heroes.append(hero)
 
 if __name__ == "__main__":
     hero1 = Hero("Wonder Woman")
