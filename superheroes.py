@@ -69,16 +69,18 @@ class Hero:
             if self.is_alive() == False:
                 print(opponent.name + " won!")
                 fighting = False
-            else:
+            elif opponent.is_alive() == False:
                 print(self.name + " won!")
                 fighting = False
+            else:
+                continue
 
 if __name__ == "__main__":
     hero1 = Hero("Wonder Woman")
     hero2 = Hero("Dumbledore")
-    ability1 = Ability("Super Speed", 300)
-    ability2 = Ability("Super Eyes", 130)
-    ability3 = Ability("Wizard Wand", 80)
+    ability1 = Ability("Super Speed", 20)
+    ability2 = Ability("Super Eyes", 20)
+    ability3 = Ability("Wizard Wand", 20)
     ability4 = Ability("Wizard Beard", 20)
     hero1.add_ability(ability1)
     hero1.add_ability(ability2)
