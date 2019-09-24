@@ -16,10 +16,6 @@ class Armor:
     def block(self):
         return random.randint(0, self.max_block)
 
-class Weapon(Ability):
-    def attack(self):
-        return random.randint(self.attack_strength//2, self.attack_strength)
-
 class Hero:
     def __init__(self, name, current_health = 100):
         self.abilities = []
@@ -33,7 +29,7 @@ class Hero:
     def attack(self):
         total_attack = 0
         for ability in self.abilities:
-            total_attack += Ability.attack(ability)
+            total_attack += ability.attack()
         return total_attack
     
     def add_armor(self, armor):
@@ -42,7 +38,7 @@ class Hero:
     def defend(self):
         total_block = 0
         for armor in self.armors:
-            total_block += Armor.block(armor)
+            total_block += armor.block()
         return total_block
     
     def take_damage(self, damage_amt):
@@ -79,33 +75,28 @@ class Hero:
             else:
                 continue
 
+class Weapon(Ability):
+    def attack(self):
+        return random.randint(self.attack_strength//2, self.attack_strength)
+
 class Team:
     def __init__(self, name):
         self.name = name
         self.heroes = []
     
     def remove_hero(self, name):
-        if name not in self.heroes:
-            return 0
-        else:
-            self.heroes.remove(name)
-
+        for hero in self.heroes:
+            if hero.name == name:
+                self.heroes.remove(hero)
+        return 0
+                
     def view_all_heroes(self):
         for hero in self.heroes:
-            print(hero)
+            print(hero.name)
 
     def add_hero(self, hero):
         self.heroes.append(hero)
 
 if __name__ == "__main__":
-    hero1 = Hero("Wonder Woman")
-    hero2 = Hero("Dumbledore")
-    ability1 = Ability("Super Speed", 20)
-    ability2 = Ability("Super Eyes", 20)
-    ability3 = Ability("Wizard Wand", 20)
-    ability4 = Ability("Wizard Beard", 20)
-    hero1.add_ability(ability1)
-    hero1.add_ability(ability2)
-    hero2.add_ability(ability3)
-    hero2.add_ability(ability4)
-    hero1.fight(hero2)
+    weapon = Weapon("Axe", 40)
+    print(weapon.attack())
